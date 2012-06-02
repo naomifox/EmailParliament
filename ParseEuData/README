@@ -1,0 +1,43 @@
+File: EmailParliament/ParseEuData/README
+Author: Naomi Fox 
+Date: June 1, 2012
+
+= Introduction =
+
+Contains json files and python code for parsing out the countries, names, and emails of active EU parliament members.
+
+To generate file, run:
+
+python parseEuParliamentEmails.py
+
+= Contents =
+
+json files from https://memopol.lqdn.fr:
+* mepschema.json 
+* mepcountry.json                
+* mepemail.json                  
+* reprepresentative.json
+* mepmep-0-711-and-713-1232.json
+
+python code:
+* parseEuParliamentEmails.py - main python code
+
+= To update =
+
+To retrieve EU parliament members data:
+
+curl "https://memopol.lqdn.fr//api/v1/reprepresentative/?limit=0&format=json" | python -m json.tool > repsdata.json
+curl "https://memopol.lqdn.fr/api/v1/repemail/?limit=0&format=json" | python -m json.tool > mepemail.json
+curl "https://memopol.lqdn.fr/api/v1/mepcountry/?limit=0&format=json" | python -m json.tool > mepcountry.json
+curl "https://memopol.lqdn.fr/api/v1/mepmep/?limit=0&format=json" | python -m json.tool > mepmep.json
+
+Note:
+mepmep.json is replaced currently with mepmep-0-711-and-713-1232.json
+
+When downloading records from memopol website, found that number 712 
+was causing an error with the json.tool.  Had to retrieve around it, 
+and then fix the file.
+
+= References =
+Sending email:
+http://www.yak.net/fqa/84.html

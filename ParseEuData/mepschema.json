@@ -1,0 +1,150 @@
+{
+    "mepbuilding": {
+        "list_endpoint": "/api/v1/mepbuilding/", 
+        "schema": "/api/v1/mepbuilding/schema/"
+    }, 
+    "mepcommittee": {
+        "list_endpoint": "/api/v1/mepcommittee/", 
+        "schema": "/api/v1/mepcommittee/schema/"
+    }, 
+    "mepcommitteerole": {
+        "list_endpoint": "/api/v1/mepcommitteerole/", 
+        "schema": "/api/v1/mepcommitteerole/schema/"
+    }, 
+    "mepcountry": {
+        "list_endpoint": "/api/v1/mepcountry/", 
+        "schema": "/api/v1/mepcountry/schema/"
+    }, 
+    "mepcountrymep": {
+        "list_endpoint": "/api/v1/mepcountrymep/", 
+        "schema": "/api/v1/mepcountrymep/schema/"
+    }, 
+    "mepdelegation": {
+        "list_endpoint": "/api/v1/mepdelegation/", 
+        "schema": "/api/v1/mepdelegation/schema/"
+    }, 
+    "mepdelegationrole": {
+        "list_endpoint": "/api/v1/mepdelegationrole/", 
+        "schema": "/api/v1/mepdelegationrole/schema/"
+    }, 
+    "mepgroup": {
+        "list_endpoint": "/api/v1/mepgroup/", 
+        "schema": "/api/v1/mepgroup/schema/"
+    }, 
+    "mepgroupmep": {
+        "list_endpoint": "/api/v1/mepgroupmep/", 
+        "schema": "/api/v1/mepgroupmep/schema/"
+    }, 
+    "meplocalparty": {
+        "list_endpoint": "/api/v1/meplocalparty/", 
+        "schema": "/api/v1/meplocalparty/schema/"
+    }, 
+    "mepmep": {
+        "list_endpoint": "/api/v1/mepmep/", 
+        "schema": "/api/v1/mepmep/schema/"
+    }, 
+    "meporganization": {
+        "list_endpoint": "/api/v1/meporganization/", 
+        "schema": "/api/v1/meporganization/schema/"
+    }, 
+    "meporganizationmep": {
+        "list_endpoint": "/api/v1/meporganizationmep/", 
+        "schema": "/api/v1/meporganizationmep/schema/"
+    }, 
+    "meppostaladdress": {
+        "list_endpoint": "/api/v1/meppostaladdress/", 
+        "schema": "/api/v1/meppostaladdress/schema/"
+    }, 
+    "mpaddress": {
+        "list_endpoint": "/api/v1/mpaddress/", 
+        "schema": "/api/v1/mpaddress/schema/"
+    }, 
+    "mpcanton": {
+        "list_endpoint": "/api/v1/mpcanton/", 
+        "schema": "/api/v1/mpcanton/schema/"
+    }, 
+    "mpcirconscription": {
+        "list_endpoint": "/api/v1/mpcirconscription/", 
+        "schema": "/api/v1/mpcirconscription/schema/"
+    }, 
+    "mpdepartment": {
+        "list_endpoint": "/api/v1/mpdepartment/", 
+        "schema": "/api/v1/mpdepartment/schema/"
+    }, 
+    "mpfunction": {
+        "list_endpoint": "/api/v1/mpfunction/", 
+        "schema": "/api/v1/mpfunction/schema/"
+    }, 
+    "mpfunctionmp": {
+        "list_endpoint": "/api/v1/mpfunctionmp/", 
+        "schema": "/api/v1/mpfunctionmp/schema/"
+    }, 
+    "mpgroup": {
+        "list_endpoint": "/api/v1/mpgroup/", 
+        "schema": "/api/v1/mpgroup/schema/"
+    }, 
+    "mpmandate": {
+        "list_endpoint": "/api/v1/mpmandate/", 
+        "schema": "/api/v1/mpmandate/schema/"
+    }, 
+    "mpmp": {
+        "list_endpoint": "/api/v1/mpmp/", 
+        "schema": "/api/v1/mpmp/schema/"
+    }, 
+    "mpphone": {
+        "list_endpoint": "/api/v1/mpphone/", 
+        "schema": "/api/v1/mpphone/schema/"
+    }, 
+    "proposal": {
+        "list_endpoint": "/api/v1/proposal/", 
+        "schema": "/api/v1/proposal/schema/"
+    }, 
+    "recommendation": {
+        "list_endpoint": "/api/v1/recommendation/", 
+        "schema": "/api/v1/recommendation/schema/"
+    }, 
+    "recommendationdata": {
+        "list_endpoint": "/api/v1/recommendationdata/", 
+        "schema": "/api/v1/recommendationdata/schema/"
+    }, 
+    "repcv": {
+        "list_endpoint": "/api/v1/repcv/", 
+        "schema": "/api/v1/repcv/schema/"
+    }, 
+    "repemail": {
+        "list_endpoint": "/api/v1/repemail/", 
+        "schema": "/api/v1/repemail/schema/"
+    }, 
+    "repopinion": {
+        "list_endpoint": "/api/v1/repopinion/", 
+        "schema": "/api/v1/repopinion/schema/"
+    }, 
+    "repopinionrep": {
+        "list_endpoint": "/api/v1/repopinionrep/", 
+        "schema": "/api/v1/repopinionrep/schema/"
+    }, 
+    "repparty": {
+        "list_endpoint": "/api/v1/repparty/", 
+        "schema": "/api/v1/repparty/schema/"
+    }, 
+    "reppartyrepresentative": {
+        "list_endpoint": "/api/v1/reppartyrepresentative/", 
+        "schema": "/api/v1/reppartyrepresentative/schema/"
+    }, 
+    "reprepresentative": {
+        "list_endpoint": "/api/v1/reprepresentative/", 
+        "schema": "/api/v1/reprepresentative/schema/"
+    }, 
+    "repwebsite": {
+        "list_endpoint": "/api/v1/repwebsite/", 
+        "schema": "/api/v1/repwebsite/schema/"
+    }, 
+    "score": {
+        "list_endpoint": "/api/v1/score/", 
+        "schema": "/api/v1/score/schema/"
+    }, 
+    "vote": {
+        "list_endpoint": "/api/v1/vote/", 
+        "schema": "/api/v1/vote/schema/"
+    }
+}
