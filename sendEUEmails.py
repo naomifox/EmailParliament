@@ -1,9 +1,13 @@
 
 import sys
+from time import sleep
 
 
 euEmailsFilename='EU-emails.json'
 logfile="log.txt"
+
+#how many seconds to wait before sending out the next email                     
+delay=5
 
 
 DEBUG=False
@@ -127,8 +131,8 @@ def main(argv):
         else:
             open(logfile, 'a').write("sending email from %s %s\n" % (email, country) )
             sendEmail(fromEmail, toEmails, subject, body)
-        
-        
+            sleep(delay)
+            
         #reps=memDict[country]
         #print reps
 
