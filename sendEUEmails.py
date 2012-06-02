@@ -125,8 +125,8 @@ def main(argv):
             print "Subject: " + subject
             print "Message:" + body
         else:
-            print "Not testing sendemail function yet"
-            sendEmail(fromEmail, "n.aomifox@gmail.com", subject, body)
+            open(logfile, 'a').write("sending email from %s %s\n" % (email, country) )
+            sendEmail(fromEmail, toEmails, subject, body)
         
         
         #reps=memDict[country]
