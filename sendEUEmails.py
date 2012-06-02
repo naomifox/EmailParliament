@@ -54,7 +54,7 @@ def getNamesAndEmailsString(nameAndEmailList):
     print "list:", nameAndEmailList
     for (name, email) in nameAndEmailList:
         if name and email:
-            emailString = emailString + ("%s <%s>, " % (name, email))
+            emailString = emailString + ("%s <%s>, " % (name.encode("iso-8859-15"), email.encode("iso-8859-15")))
         else:
             open(logfile, 'a').write("Cannot send email to member: %s, email-address: %s.\n" % (name, email))
             print ("Cannot send to %s, %s" % (name, email))
