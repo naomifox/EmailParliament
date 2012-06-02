@@ -7,7 +7,7 @@ euEmailsFilename='EU-emails.json'
 logfile="log.txt"
 
 #how many seconds to wait before sending out the next email                     
-delay=5
+delay=1
 
 
 DEBUG=False
