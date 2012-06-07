@@ -1,6 +1,10 @@
 #
 # file: sendEUEmailsMulti.py
 # send an email to the member of EU parliament
+#
+# To test (place your email into country XX in EU-emails.json)
+# python sendEUEmailsMulti.py -i testSigners.txt -m actamessageMulti.txt -c XX 
+
 
 import sys
 
