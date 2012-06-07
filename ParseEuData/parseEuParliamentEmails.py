@@ -24,6 +24,12 @@ class ParliamentaryMemberEmailParser:
                  repfilename='mepmep-0-711-and-713-1232.json',
                  countryfilename='mepcountry.json'):
 
+        # lookup table for country codes and names
+        self.countryCodeToCountryNameDict = {}
+
+        # lookup table for names and emails
+        self.countryToNamesAndEmails={}
+
         #open with json
         repnamedata=json.load(open(repnamefilename, 'r'))
         repemaildata=json.load(open(repemailfilename, 'r'))
@@ -31,15 +37,19 @@ class ParliamentaryMemberEmailParser:
         countrydata=json.load(open(countryfilename, 'r'))
 
         #intermediate dicts used to build name_id => country_code dict
-        countryiddict={}
-        countryIdToCountryCodeDict={}
 
+        countryIdToCountryCodeDict={}
+        
+        # id => country
+        countryiddict={}
         # name_id => email
         emaildict={}
         # name_id => full_name
         namedict={}
         # name_id => country_code
         countrydict={}
+        # country_code => country_name
+        countrycodedict={}
 
         for mem in repdata['objects']:
             id=mem['id']
@@ -67,6 +77,8 @@ class ParliamentaryMemberEmailParser:
 
         for country in countrydata['objects']:
             code=country['code']
+            countryname=country['name']
+            self.countryCodeToCountryNameDict[code]=countryname
             countrymep_set=country['countrymep_set']
             if DEBUG: print "Country:", code
             if DEBUG: print countrymep_set
@@ -87,13 +99,14 @@ class ParliamentaryMemberEmailParser:
             if DEBUG: print  nameid, countrydict[nameid], namedict[nameid], emaildict[nameid]
 
         #load the lookup table for country codes to names and emails
-        self.countryToNamesAndEmails={}
         for (nameid, countrycode) in countrydict.items():
             fullName=namedict[nameid]
             email=emaildict[nameid]
             if countrycode not in self.countryToNamesAndEmails:
                 self.countryToNamesAndEmails[countrycode] = []
             self.countryToNamesAndEmails[countrycode].append((fullName, email))
+
+        
 
 
     def getCountryToNamesAndEmailsDict(self):
@@ -124,6 +137,9 @@ class ParliamentaryMemberEmailParser:
         of = open(outputfilename, 'w')
         json.dump(self.countryToNamesAndEmails, of)
 
+    def dumpCountryCodesAndCountryNamesToFile(self, outputfilename):
+        of = open(outputfilename, 'w')
+        json.dump(self.countryCodeToCountryNameDict, of)
 
 def usage():
     print "Usage: "
@@ -137,6 +153,7 @@ def usage():
 def main():               
     parser = ParliamentaryMemberEmailParser()
     parser.dumpCountriesNamesAndEmailsToFile('EU-emails.json')
+    parser.dumpCountryCodesAndCountryNamesToFile('EU-countrycodes.json')
 
     if DEBUG:
         testDict = json.load(open('test.txt', 'r'))
