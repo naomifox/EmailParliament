@@ -17,6 +17,7 @@ sendEUEmails.py --help
 * sampleemails.csv - a file containing example emails and countries for EU constituents who are participating in the email campaing
 * actamessage.txt  - message subject and body for ACTA campaign
 * sendEUEmails.py  - the main python file containing code for sending emails
+* sendEUEmailsMulti.py  - python file for sending an email to all MEPs from the same country
 * ParseEuData/	 - directory containing data files, code, and instructions for generating the EU-emails.json file.
 
 = Requirements =
