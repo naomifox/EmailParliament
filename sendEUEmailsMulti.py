@@ -28,6 +28,7 @@ def sendEmail(fromEmail, toEmail, subject, message):
     p = os.popen("%s -t " % SENDMAIL, "w")
     if fromEmail:
         p.write("From: %s\n" % fromEmail)
+        p.write("Bcc: %s\n" % fromEmail)
     p.write("To: %s\n" % toEmail)
     p.write("Subject: %s\n" % subject)
     p.write("\n") # blank line separating headers from body
