@@ -215,7 +215,8 @@ def main(argv):
 
     # place the mailto link into the email
     signersMessageBody=signersMessageBody.replace('$MAILYOURMEPSLINK$', mepsMailToLink)
-    
+
+    signersMessageBody="<html>%s</html>" % signersMessageBody
     
     
     #signersMessageBody.replace('$MAILYOURMEPSLINK$', 
@@ -227,6 +228,8 @@ def main(argv):
         print "To: " + toEmails
         print "Subject: " + signersMessageSubject
         print "Message:" + signersMessageBody
+
+        print "Length of url: %d " % len(signersMessageBody)
     else:
         print "sending email to %s %s\n" % (toEmails, countryCode)
         sendEmail(fromEmail, toEmails, signersMessageSubject, signersMessageBody)
