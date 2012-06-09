@@ -25,3 +25,10 @@ sendEUEmails.py --help
 
 = About = 
 This code was written by Naomi for Center for Rights.
+
+= Notes =
+
+* About mailto links: http://email.about.com/od/mailtoemaillinks/a/mailto_elements.htm
+* Mailto link generator: http://email.about.com/library/misc/blmailto_encoder.htm
+
+A space must be translated to "%20", for example, and a line break becomes "%0D%0A".

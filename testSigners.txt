@@ -1,3 +1,3 @@
-Signer 1
-Sinner 2
-Singer 3
+blah@blah.com
+blah2@blah2.com
+blah3@blah3.com
