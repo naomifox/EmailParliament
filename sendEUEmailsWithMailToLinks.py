@@ -58,7 +58,7 @@ def convertmessageToMailToLink(toEmail, subject, message, ccEmail=None, bccEmail
     if bccEmail:
         url += "&bcc=%s" % bccEmail
     url += "&body=%s" % message
-    url = url.replace(' ', '%20').replace('\n', '%0D%0A')
+    url = url.replace(' ', '%20').replace('\n', '%0D%0A').replace('"', '%22')
     return url
     #import urllib
     #input_url = urllib.quote ( url )
