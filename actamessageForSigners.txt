@@ -1,11 +1,11 @@
-Tell your MEPs to Vote NO on ACTA
+Support Internet Freedom in $COUNTRY$ and beyond
 
-Dear supporter,
+Dear EU citizen,
 
-We need your support against ACTA.  
+Let's stop ACTA.  
 
-<a href="$MAILYOURMEPSLINK$">Click this link to mail your MEPS</a> and hit send.
+<a href="$MAILYOURMEPSLINK$">Email your MEPs</a> and hit send.
 
 Thank you,
 Fight For The Future
-http://fightforthefuture.org
+
