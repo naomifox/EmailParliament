@@ -2,6 +2,9 @@
 import sys
 from time import sleep
 
+# import the file containing the smtp server
+# credentials
+from smtpServerCredentials import *
 
 # fixes some issues with unicode
 from django.utils.encoding import smart_str, smart_unicode
@@ -10,7 +13,6 @@ from django.utils.encoding import smart_str, smart_unicode
 # these two files must be in the current working directory
 euEmailsFilename='EU-emails.json'
 euCountriesFilename='EU-countrycodes.json'
-
 # this file is produced as a log file
 logfile="log.txt"
 
@@ -27,7 +29,7 @@ DEBUG=False
 # $MAILYOURMEPSLINK$ - a mailto: link which provides everything necessary to email your MEP
 # $COUNTRY$ - the name of the country 
 
-def sendEmail(fromEmail, toEmail, subject, message):
+def sendEmail(fromEmail, toEmail, subject, html):
     '''
     fromEmail is a string, such as Al Arthritis <al@arthritis.org>
     toEmail is a string, such as \'<greg@gastritis.org>, <brian@bursitis.org>\'
@@ -35,21 +37,36 @@ def sendEmail(fromEmail, toEmail, subject, message):
     message is a string
     will send the emails and may print a status message
     '''
-    SENDMAIL = "/usr/sbin/sendmail" # sendmail location
-    import os
-    p = os.popen("%s -t " % SENDMAIL, "w")
-    p.write("From: %s\n" % fromEmail)
-    p.write("Bcc: %s\m" % fromEmail)
-    p.write("To: %s\n" % toEmail)
-    p.write("Subject: %s\n" % subject)
-    p.write("\n") # blank line separating headers from body
-    p.write(message)
-    sts = p.close()
-    if sts != None:
-        open(logfile, 'a').write( "Sendmail exit status" + str(sts))
-        print "Sendmail exit status", sts
+    from email.mime.multipart import MIMEMultipart
+    from email.mime.text import MIMEText
+    msg = MIMEMultipart('alternative')
+    msg['Subject'] = subject
+    msg['From'] = fromEmail
+    msg['To'] = toEmail
+    part2 = MIMEText(html, 'html')
+    msg.attach(part2)
 
+    print "full MIME message:", msg
+    #sys.exit()
+
+    import smtplib
+    server = smtplib.SMTP()
+    server.connect(host, port)
+    server.ehlo()
+    server.starttls()
+    server.login(user, password)
+    
+    server.sendmail(fromEmail, toEmail, msg.as_string() )
+    server.quit
+    
 def convertmessageToMailToLink(toEmail, subject, message, ccEmail=None, bccEmail=None):
+    '''
+    Create an email with a mail-to link.
+    Looks something like:
+    mailto:toEmail?subject=blah&message=blahblah
+
+    There is a limit to the url length that Gmail/Chrome is willing to open
+    '''
     url="mailto:"
     url +=toEmail
     url += "?subject=%s" % subject
@@ -59,10 +76,9 @@ def convertmessageToMailToLink(toEmail, subject, message, ccEmail=None, bccEmail
         url += "&bcc=%s" % bccEmail
     url += "&body=%s" % message
     url = url.replace(' ', '%20').replace('\n', '%0D%0A').replace('"', '%22')
+    if len(url) > 10000:
+        raise Exception('url is too long, %d.  shorten your message' % len(url))
     return url
-    #import urllib
-    #input_url = urllib.quote ( url )
-    #return "mailto:"+input_url
 
 def parseMessageFile(messageFile):
     '''
@@ -121,7 +137,6 @@ def usage():
     print ""
     print "Run example:"
     print "python sendEUEmailsWithMailToLinks.py -d -f me@me.com -i testSigners.txt -s actamessageForSigners.txt -m actamessageForMeps.txt -c XX"
-
 
 def main(argv):
     import getopt
@@ -197,7 +212,7 @@ def main(argv):
         sys.exit(1)
     country = smart_str(countryDict[countryCode])
     
-    toEmails=getNamesAndEmailsString(memDict[countryCode])
+    mepsEmails=getNamesAndEmailsString(memDict[countryCode])
     mepsNamesString=getNamesString(memDict[countryCode])
 
     # read the message that should be relayed to the MEPs
@@ -205,9 +220,10 @@ def main(argv):
     mepsMessageBody = mepsMessageBody.replace('$MEPS$', mepsNamesString).replace('$COUNTRY$', country)
     #print mepsMessageBody
 
-    signersToString=''.join(["%s, " % signer for signer in signers])
+    signersToString=''.join(["%s," % signer for signer in signers])
+    signersToString=signersToString[0:len(signersToString)-1]
     
-    mepsMailToLink=convertmessageToMailToLink(signersToString, mepsMessageSubject, mepsMessageBody, ccEmail=None, bccEmail=None)
+    mepsMailToLink=convertmessageToMailToLink(mepsEmails, mepsMessageSubject, mepsMessageBody, ccEmail=None, bccEmail=None)
     #print mepsMailToLink
         
     # read the message to the signers
@@ -225,55 +241,18 @@ def main(argv):
         print "Will send email:"
         if fromEmail:
             print "From: " + fromEmail
-        print "To: " + toEmails
+        print "To: " + signersToString
         print "Subject: " + signersMessageSubject
         print "Message:" + signersMessageBody
 
         print "Length of url: %d " % len(signersMessageBody)
     else:
-        print "sending email to %s %s\n" % (toEmails, countryCode)
-        sendEmail(fromEmail, toEmails, signersMessageSubject, signersMessageBody)
+        print "sending email to %s %s\n" % (signersToString, countryCode)
+        sendEmail(fromEmail, signersToString, signersMessageSubject, signersMessageBody)
 
 
     sys.exit()
 
-    ctr=0
-    unknownCountries=[]
-    for (email, country) in r:
-        print email, country
-        if country not in memDict:
-            open(logfile, 'a').write('unknown country error.  %s %s\n' % (email, country))
-            if country not in unknownCountries:
-                unknownCountries.append(country)
-            continue
-        ctr += 1
-        fromEmail=email
-        toEmails=getNamesAndEmailsString(memDict[country])
-        if DEBUG:
-            print "Will send email:"
-            print "From: " + fromEmail
-            print "To: " + toEmails
-            print "Subject: " + subject
-            print "Message:" + body
-        else:
-            open(logfile, 'a').write("sending email from %s %s\n" % (email, country) )
-            sendEmail(fromEmail, toEmails, subject, body)
-            sleep(delay)
-            
-        #reps=memDict[country]
-        #print reps
-
-    if DEBUG: print "unknown countries", unknownCountries
-    unknownStr = str(unknownCountries)
-    open(logfile, 'a').write("unknown countries: %s\n" % unknownStr)
-    print ctr
-
-    open(logfile, 'a').write("Check /var/log/mail.log to see if emails were sent successfully\n")
-    
     
 if __name__ == "__main__":
-    #print convertmessageToMailToLink("naomifox@gmail.com", "This is a test", "And this is my message.\nAnd this is more of my message.\n", "naomi.fox@gmail.com")
-    #print ""
-    #print convertmessageToMailToLink("\"Na Na\" <naomifox@gmail.com>,naom.i.fox@gmail.com", "This is a test", "And this is my message.\nAnd this is more of my message.\n", "naomi.fox@gmail.com,naom.fox@gmail.com")
-    #sys.exit()
     main(sys.argv[1:])
