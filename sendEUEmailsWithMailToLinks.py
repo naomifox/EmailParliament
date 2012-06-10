@@ -214,9 +214,12 @@ def main(argv):
     
     mepsEmails=getNamesAndEmailsString(memDict[countryCode])
     mepsNamesString=getNamesString(memDict[countryCode])
-
     # read the message that should be relayed to the MEPs
     (mepsMessageSubject, mepsMessageBody)=parseMessageFile(mepMessageFilename)
+    
+    # place in the name of the meps (used in greeting, as in "Dear $MEPS$,")
+    # place in the name of the country
+    mepsMessageSubject = mepsMessageSubject.replace('$MEPS$', mepsNamesString).replace('$COUNTRY$', country)
     mepsMessageBody = mepsMessageBody.replace('$MEPS$', mepsNamesString).replace('$COUNTRY$', country)
     #print mepsMessageBody
 
@@ -230,8 +233,8 @@ def main(argv):
     (signersMessageSubject, signersMessageBody)=parseMessageFile(signersMessageFilename)
 
     # place the mailto link into the email
-    signersMessageBody=signersMessageBody.replace('$MAILYOURMEPSLINK$', mepsMailToLink)
-
+    signersMessageSubject=signersMessageSubject.replace('$MEPS$', mepsNamesString).replace('$COUNTRY$', country)
+    signersMessageBody=signersMessageBody.replace('$MEPS$', mepsNamesString).replace('$COUNTRY$', country).replace('$MAILYOURMEPSLINK$', mepsMailToLink)
     signersMessageBody="<html>%s</html>" % signersMessageBody
     
     
