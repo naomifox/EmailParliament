@@ -101,11 +101,10 @@ def getNamesAndEmailsString(nameAndEmailList):
     mem1 <mem1@country1.eu>, mem2 <mem2@country2.edu>
     '''
     emailString = ""
-
-    
     for (name, email) in nameAndEmailList:
         if name and email:
-            emailString = emailString + ("%s <%s>, " % (smart_str(name), email.encode("iso-8859-15")))
+            #emailString = emailString + ("%s <%s>, " % (smart_str(name), email.encode("iso-8859-15")))
+            emailString = emailString + ("%s, " % email.encode("iso-8859-15"))
         else:
             print ("Cannot send to %s, %s" % (smart_str(name), email))
     #remove the last comma
